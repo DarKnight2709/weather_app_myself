@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_app_myself/pages/home.dart';
-import 'package:weather_app_myself/pages/loading.dart';
-import 'package:weather_app_myself/pages/location.dart';
+import 'package:weather_app_myself/providers/weather_data.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,17 +12,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      
-      routes: {
-        '/': (context) =>  Loading(),
-        '/home': (context) => const MyHomePage(),
-        '/location': (context) => const ChooseLocation(),
-
-      },
-      
+    return ChangeNotifierProvider(
+      create: (_) => WeatherData(),
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: MyHomePage()
+      ),
     );
   }
 }
